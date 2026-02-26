@@ -50,7 +50,7 @@ export default function Lander() {
             >
                 {/* Animated Heading */}
                 <motion.h1
-                    className="text-5xl  font-black tracking-tight leading-tight font-sans md:text-7xl"
+                    className="text-5xl  font-black tracking-tight leading-tight font-sans md:text-7xl -mt-20"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -259,7 +259,9 @@ export default function Lander() {
                             section.scrollIntoView({ behavior: "smooth" });
                         }
                     }}
-                    className="mt-6 px-4 py-2 rounded-full bg-gradient-to-r from-[#003922]/18 to-[#002233]/16 border border-[#00FF88]/10 backdrop-blur-sm inline-flex items-center gap-3 hover:from-[#003922]/22 hover:to-[#002233]/20 hover:border-[#00FF88]/20 transition-all duration-300"
+                    className="mt-6 px-4 py-2 rounded-full bg-gradient-to-r from-[#003922]/18 to-[#002233]/16 
+                    border border-[#00FF88]/10 backdrop-blur-sm inline-flex items-center gap-3 
+                    hover:from-[#003922]/22 hover:to-[#002233]/20 hover:border-[#00FF88]/20 transition-all duration-300"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.985 }}
                 >

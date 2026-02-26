@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, CheckCircle } from "lucide-react";
+import { Calendar, MapPin, CheckCircle, Trophy } from "lucide-react";
 
 // Sample events data (replace with real data or import)
 const eventsData = {

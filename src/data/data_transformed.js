@@ -1139,7 +1139,7 @@ export const data = {
       "name": "MOHIT MEENA",
       "year": 2026,
       "role": "CAPTAIN",
-      "email": "mohitmeena76108@gmaol.com",      "photo": "https://drive.google.com/file/d/1r3CEkoHIb9c1-rCH37kwBwfOvLnKdRsv/view?usp=drive_link",
+      "email": "mohitmeena76108@gmaol.com",      "photo": "images/c4.jpg",
       "department": "Engineering",
       "github": "https://github.com/example",
       "linkedin": "https://linkedin.com/in/example"
