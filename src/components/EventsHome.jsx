@@ -1,119 +1,169 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin, ArrowRight, Mail } from "lucide-react";
 import Sponsors from "./Sponsors";
 
+const events = [
+  { id: 1, name: "TechNova Summit", date: "March 15, 2025", venue: "Walmart Innovation Hub, Bengaluru", description: "A convergence of technology enthusiasts showcasing innovative AI and retail solutions." },
+  { id: 2, name: "Green Future Expo", date: "July 10, 2025", venue: "EcoDome Convention Center, Mumbai", description: "A sustainability-driven event focusing on eco-tech, IoT, and carbon management systems." },
+  { id: 3, name: "Retail Intelligence Conference", date: "November 21, 2025", venue: "Hyatt Convention Hall, Hyderabad", description: "A premier event exploring AI, data analytics, and computer vision in modern retail." },
+];
+
 export default function EventsHome() {
-    const events = [
-        {
-            id: 1,
-            name: "TechNova Summit",
-            date: "March 15, 2025",
-            venue: "Walmart Innovation Hub, Bengaluru",
-            description:
-                "A convergence of technology enthusiasts showcasing innovative AI and retail solutions.",
-        },
-        {
-            id: 2,
-            name: "Green Future Expo",
-            date: "July 10, 2025",
-            venue: "EcoDome Convention Center, Mumbai",
-            description:
-                "A sustainability-driven event focusing on eco-tech, IoT, and carbon management systems.",
-        },
-        {
-            id: 3,
-            name: "Retail Intelligence Conference",
-            date: "November 21, 2025",
-            venue: "Hyatt Convention Hall, Hyderabad",
-            description:
-                "A premier event exploring AI, data analytics, and computer vision in modern retail.",
-        },
-    ];
+  return (
+    <div className="w-full bg-[#040d06]/40 py-16 sm:py-24 overflow-hidden">
+      
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: (i) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.2,
-                type: "spring",
-                stiffness: 80,
-            },
-        }),
-    };
+      {/* Glow */}
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#00FF88]/4 blur-[120px] rounded-full" />
 
-    return (
-        <div className="w-full min-h-[70vh] bg-black/70 flex flex-col justify-center items-center py-20">
-            <h1 className="md:text-5xl font-[Orbitron] font-semibold mb-16 text-green-500 tracking-wide">
-                Upcoming Events
-            </h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
-            <div className="flex flex-wrap justify-center gap-10">
-                {events.map((event, i) => (
-                    <motion.div
-                        key={event.id}
-                        custom={i}
-                        variants={cardVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="relative w-[25vw] h-[25vh] rounded-2xl overflow-hidden shadow-xl border border-green-200/50 bg-cyan-400/5 p-6 flex flex-col justify-between"
-                    >
-                        {/* Event Title */}
-                        <h2 className="text-xl font-semibold text-white font-mono text-center mb-2">
-                            {event.name}
-                        </h2>
-
-                        {/* Date & Venue */}
-                        <div className="flex flex-col items-center gap-2 text-sm text-green-300">
-                            <div className="flex items-center gap-2">
-                                <CalendarDays size={16} />
-                                <span>{event.date}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <MapPin size={16} />
-                                <span>{event.venue}</span>
-                            </div>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-gray-300 text-sm text-center mt-4 leading-relaxed">
-                            {event.description}
-                        </p>
-
-                        {/* Glow animation stripe (same style theme) */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-500" />
-                    </motion.div>
-                ))}
-            </div>
-
-            <div>
-                <button className="mt-16 border border-cyan-300/50 p-2 rounded-sm text-green-400 font-semibold font-mono bg-slate-800 hover:rounded-2xl hover:bg-green-500 hover:text-black hover:ease-in-out duration-700">
-                    View All Events →
-                </button>
-            </div>
-            <div className="justify-center item-center text-center mb-10">
-                <h1 className="md:text-5xl font-[Orbitron] font-semibold mb-16 text-green-500 tracking-wide pt-[10vh]">
-                    Our Partners
-                </h1>
-                <Sponsors />
-            </div>
-            <div className="flex flex-col items-center justify-center text-center pb-5"><h3 className="text-xl text-green-400 font-mono">
-                    Reach out to us for collaborations.
-                </h3>
-
-                <button className="flex items-center justify-center mt-8 border border-cyan-300/50 px-4 py-2 rounded-sm text-green-400 font-semibold font-mono bg-cyan-900 hover:rounded-2xl hover:bg-green-500 hover:text-black hover:ease-in-out duration-700">
-                    <span className="mr-2 font-mono">Reach out</span>
-                    <span>
-                        <img
-                            className="h-5 invert brightness-0"
-                            src="/images/image.png"
-                            alt="mail"
-                        />
-                    </span>
-                </button>
-            </div>
+        {/* Heading */}
+        <div className="text-center mb-10 sm:mb-14">
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00FF88]/20 bg-[#00FF88]/5 text-[#00FF88] text-[10px] font-bold tracking-[0.2em] mb-4"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] animate-pulse" />
+            UPCOMING EVENTS
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            What's{" "}
+            <span className="bg-gradient-to-r from-[#00FF88] to-[#00CCFF] bg-clip-text text-transparent">
+              Coming Up
+            </span>
+          </motion.h2>
         </div>
-    );
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-7 mb-10 sm:mb-14">
+          {events.map((event, i) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              whileHover={{ y: -6 }}
+              className="group bg-white/[0.03] border border-white/8 rounded-2xl p-6 flex flex-col gap-4 hover:border-[#00FF88]/20 transition-all duration-400"
+            >
+              {/* Number */}
+              <span className="text-5xl font-black text-white/5 leading-none" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                0{i + 1}
+              </span>
+
+              <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#00FF88] transition-colors duration-300">
+                {event.name}
+              </h3>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-xs text-gray-400">
+                  <CalendarDays size={13} className="text-[#00FF88] shrink-0" />
+                  {event.date}
+                </div>
+                <div className="flex items-start gap-2 text-xs text-gray-400">
+                  <MapPin size={13} className="text-[#00FF88] shrink-0 mt-0.5" />
+                  {event.venue}
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-400 leading-relaxed flex-1">
+                {event.description}
+              </p>
+
+              <div className="pt-3 border-t border-white/5">
+                <button className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00FF88] hover:gap-3 transition-all duration-200"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  Learn More <ArrowRight size={12} />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* View All CTA */}
+        <div className="text-center mb-16 sm:mb-24">
+          <motion.a
+            href="/events"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full border border-[#00FF88]/30 text-[#00FF88] font-bold text-sm tracking-widest hover:bg-[#00FF88]/10 hover:border-[#00FF88]/60 transition-all duration-300"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            View All Events <ArrowRight size={15} />
+          </motion.a>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-[#00FF88]/20 to-transparent mb-16 sm:mb-24" />
+
+        {/* Sponsors */}
+        <div className="text-center mb-8 sm:mb-12">
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00FF88]/20 bg-[#00FF88]/5 text-[#00FF88] text-[10px] font-bold tracking-[0.2em] mb-4"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            OUR PARTNERS
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.06 }}
+            className="text-2xl sm:text-3xl font-black text-white"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            Trusted by{" "}
+            <span className="bg-gradient-to-r from-[#00FF88] to-[#00CCFF] bg-clip-text text-transparent">
+              Industry Leaders
+            </span>
+          </motion.h2>
+        </div>
+        <Sponsors />
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-[#00FF88]/20 to-transparent mt-16 mb-16 sm:mt-24 sm:mb-24" />
+
+        {/* Collab CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center bg-white/[0.02] border border-white/8 rounded-2xl p-8 sm:p-12"
+        >
+          <h3 className="text-2xl sm:text-3xl font-black text-white mb-3" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+            Let's{" "}
+            <span className="text-[#00FF88]">Collaborate</span>
+          </h3>
+          <p className="text-gray-400 text-sm sm:text-base mb-8 max-w-md mx-auto">
+            Interested in sponsoring or partnering with Team Xanthronz? We'd love to hear from you.
+          </p>
+          <a
+            href="mailto:xanthronz.team@gmail.com"
+            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00CC66] to-[#00FF88] text-black font-black text-sm tracking-widest hover:opacity-90 shadow-[0_0_24px_rgba(0,255,136,0.25)] hover:shadow-[0_0_36px_rgba(0,255,136,0.4)] transition-all duration-300"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            <Mail size={16} /> Reach Out
+          </a>
+        </motion.div>
+      </div>
+    </div>
+  );
 }

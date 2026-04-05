@@ -1,117 +1,148 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Calendar, MapPin, CheckCircle, Trophy } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Calendar, MapPin, CheckCircle, Clock, ArrowRight } from "lucide-react";
 
-// Sample events data (replace with real data or import)
 const eventsData = {
   upcoming: [
-    {
-      id: 1,
-      title: "AI Bootcamp 2026",
-      date: "March 12, 2026",
-      venue: "Main Auditorium",
-      description: "A hands-on bootcamp covering AI, ML, and real-world projects.",
-    },
-    {
-      id: 2,
-      title: "Hackathon X",
-      date: "April 5, 2026",
-      venue: "Innovation Lab",
-      description: "24-hour hackathon to build futuristic tech solutions.",
-    },
+    { id: 1, title: "AI Bootcamp 2026", date: "March 12, 2026", venue: "Main Auditorium", description: "A hands-on bootcamp covering AI, ML, and real-world projects." },
+    { id: 2, title: "Hackathon X", date: "April 5, 2026", venue: "Innovation Lab", description: "24-hour hackathon to build futuristic tech solutions." },
   ],
   completed: [
-    {
-      id: 3,
-      title: "Web Dev Workshop",
-      date: "Jan 18, 2025",
-      venue: "Seminar Hall B",
-      description: "Workshop on modern React and frontend best practices.",
-    },
-    {
-      id: 4,
-      title: "Intro to Cybersecurity",
-      date: "Oct 2, 2024",
-      venue: "Online",
-      description: "Basics of cybersecurity, ethical hacking, and defense.",
-    },
+    { id: 3, title: "Web Dev Workshop", date: "Jan 18, 2025", venue: "Seminar Hall B", description: "Workshop on modern React and frontend best practices." },
+    { id: 4, title: "Intro to Cybersecurity", date: "Oct 2, 2024", venue: "Online", description: "Basics of cybersecurity, ethical hacking, and defense." },
   ],
 };
 
-export default function Event() {
+export default function Events() {
   const [activeTab, setActiveTab] = useState("upcoming");
 
   return (
-    <section className="bg-black/90 text-gray-200 min-h-screen py-16 text-sm">
-      {/* Background Video */}
-      <video
-        className="fixed inset-0 w-full h-full object-cover -z-20"
-        src="/videos/61695-499594106.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-      <div className="fixed bg-cyan-300/50 inset-0 w-full h-full -z-20" />
+    <section className="relative min-h-screen bg-[#040d06]/0 text-white overflow-hidden">
+      {/* Video + tint */}
+      <video className="fixed inset-0 w-full h-full object-cover -z-20 opacity-55" src="/videos/215761_medium.mp4" autoPlay muted loop playsInline />
+      <div className="fixed inset-0 -z-10 bg-[#040d06]/25" />
+      <div className="pointer-events-none absolute top-0 right-0 w-[500px] h-[400px] bg-[#00FF88]/4 blur-[120px] rounded-full" />
 
-      {/* Heading */}
-      <div className="text-center mb-12">
-        <h2 className="md:text-2xl font-[orbitron] font-bold text-green-400 mb-3">
-          Club Events
-        </h2>
-        <p className="text-gray-400 text-sm font-semibold">
-          🚀 Explore our journey through events & innovations
-        </p>
-      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-16">
 
-      {/* Tabs */}
-      <div className="flex justify-center gap-4 mb-12 text-xs font-semibold">
-        {["upcoming", "completed"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2 rounded-md border duration-300 ${
-              activeTab === tab
-                ? "bg-green-500 text-black border-green-400"
-                : "border-green-400/40 text-green-400 hover:bg-green-600 hover:text-black"
-            }`}
+        {/* Header */}
+        <div className="text-center mb-6 sm:mb-8">
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00FF88]/20 bg-[#00FF88]/5 text-[#00FF88] text-[10px] font-bold tracking-[0.2em] mb-4"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
-            {tab === "upcoming" ? "Upcoming Events" : "Completed Events"}
-          </button>
-        ))}
-      </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] animate-pulse" />
+            CLUB EVENTS
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.06 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-3"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            <span className="bg-gradient-to-r from-[#00FF88] to-[#00CCFF] bg-clip-text text-transparent">
+              Events &
+            </span>{" "}
+            Innovations
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}
+            className="text-gray-400 text-sm sm:text-base">
+            🚀 Explore our journey through events & innovations
+          </motion.p>
+        </div>
 
-      {/* Events Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-10 justify-items-center">
-        {eventsData[activeTab].map((event) => (
+        {/* Tabs */}
+        <div className="flex justify-center mb-10 sm:mb-14">
+          <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/8">
+            {[
+              { key: "upcoming", label: "Upcoming", icon: Clock },
+              { key: "completed", label: "Completed", icon: CheckCircle },
+            ].map(({ key, label, icon: Icon }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold tracking-widest transition-all duration-300
+                  ${activeTab === key
+                    ? "bg-[#00FF88] text-black shadow-[0_0_16px_rgba(0,255,136,0.3)]"
+                    : "text-gray-400 hover:text-white"
+                  }`}
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
+                <Icon size={14} />
+                <span className="hidden sm:inline">{label}</span>
+                <span className="sm:hidden">{label.slice(0, 5)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Cards */}
+        <AnimatePresence mode="wait">
           <motion.div
-            key={event.id}
-            whileHover={{ scale: 1.05, rotateY: 6 }}
-            transition={{ type: "spring", stiffness: 120 }}
-            className="bg-zinc-900/60 border border-green-400/30 backdrop-blur-md shadow-md rounded-2xl p-6 w-72 hover:border-green-400/60"
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-7"
           >
-            <h3 className="text-green-400 text-lg font-semibold mb-2">
-              {event.title}
-            </h3>
+            {eventsData[activeTab].map((event, i) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="group bg-white/[0.03] border border-white/8 rounded-2xl p-6 flex flex-col gap-4 hover:border-[#00FF88]/20 transition-all duration-400"
+              >
+                {/* Status chip */}
+                <div className="flex items-center justify-between">
+                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] px-2.5 py-1 rounded-full
+                    ${activeTab === "upcoming"
+                      ? "bg-[#00FF88]/10 text-[#00FF88] border border-[#00FF88]/25"
+                      : "bg-gray-500/10 text-gray-400 border border-gray-500/20"
+                    }`}
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    {activeTab === "upcoming" ? (
+                      <><span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] animate-pulse" /> UPCOMING</>
+                    ) : (
+                      <><CheckCircle size={10} /> COMPLETED</>
+                    )}
+                  </span>
+                </div>
 
-            <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
-              <Calendar size={14} /> {event.date}
-            </div>
-            <div className="flex items-center gap-2 text-xs text-gray-400 mb-3">
-              <MapPin size={14} /> {event.venue}
-            </div>
+                <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#00FF88] transition-colors duration-300 leading-tight">
+                  {event.title}
+                </h3>
 
-            <p className="text-gray-300 text-sm mb-4">
-              {event.description}
-            </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <Calendar size={13} className="text-[#00FF88] shrink-0" />
+                    {event.date}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <MapPin size={13} className="text-[#00FF88] shrink-0" />
+                    {event.venue}
+                  </div>
+                </div>
 
-            {activeTab === "completed" && (
-              <div className="flex items-center gap-2 text-green-400 text-xs font-semibold">
-                <CheckCircle size={14} /> Successfully Completed
-              </div>
-            )}
+                <p className="text-sm text-gray-400 leading-relaxed flex-1">
+                  {event.description}
+                </p>
+
+                <div className="pt-3 border-t border-white/5">
+                  <button className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00FF88] hover:gap-3 transition-all duration-200"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    Details <ArrowRight size={12} />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
+        </AnimatePresence>
       </div>
     </section>
   );

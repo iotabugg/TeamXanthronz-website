@@ -1,90 +1,128 @@
 import React from "react";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Github,
-  Linkedin,
-  Instagram,
-  Globe,
-  Heart,
-} from "lucide-react";
+import { MapPin, Phone, Mail, Github, Linkedin, Instagram, Globe, Heart, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const NAV = [
+  { label: "Home", to: "/" },
+  { label: "Squads", to: "/Squads" },
+  { label: "Events", to: "/events" },
+  { label: "Evolve", to: "/evolve" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "About Us", to: "/about" },
+  { label: "Achievements", to: "/achievements" },
+];
+
+const SOCIAL = [
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Globe, href: "#", label: "Website" },
+];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-700 bg-black text-gray-300 font-mono py-10 px-8 md:px-20">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* ===== Left Column ===== */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img src="/logos/TEAM_logo.png" alt="Xanthronz Logo" className="h-10 w-auto" />
-            <h2 className="text-2xl font-bold text-green-400">Xanthronz</h2>
+    <footer className="relative bg-[#030b04]/60 border-t border-white/8 text-gray-400 overflow-hidden">
+
+      {/* Top glow strip */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#00FF88]/30 to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[300px] bg-[#00FF88]/3 blur-[100px] rounded-full" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 pb-4 sm:pb-6">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10">
+
+          {/* Brand col */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/logos/TEAM_logo.png" alt="Xanthronz" className="h-10 w-auto" />
+              <span className="text-xl font-extrabold bg-gradient-to-r from-[#00FF88] to-[#00CCFF] bg-clip-text text-transparent"
+                style={{ fontFamily: "'VT323', monospace", fontSize: "1.6rem" }}>
+                XANTHRONZ
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-gray-500 mb-5 max-w-xs">
+              E-Baja team from NIT Agartala — building electric ATVs and making Northeast India proud on the national stage.
+            </p>
+            <div className="flex gap-3">
+              {SOCIAL.map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} aria-label={label}
+                  className="p-2.5 rounded-xl bg-white/5 border border-white/8 text-gray-500 hover:text-[#00FF88] hover:border-[#00FF88]/30 hover:bg-[#00FF88]/8 transition-all duration-300">
+                  <Icon size={16} />
+                </a>
+              ))}
+            </div>
           </div>
-          <p className="text-sm leading-relaxed text-gray-400">
-            A futuristic innovation team passionate about building intelligent and immersive experiences.
+
+          {/* Nav links */}
+          <div>
+            <h3 className="text-xs font-bold tracking-[0.2em] text-[#00FF88] mb-4 uppercase"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              Navigation
+            </h3>
+            <ul className="space-y-2.5">
+              {NAV.map(({ label, to }) => (
+                <li key={label}>
+                  <Link to={to}
+                    className="text-sm text-gray-500 hover:text-[#00FF88] transition-colors duration-200">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h3 className="text-xs font-bold tracking-[0.2em] text-[#00FF88] mb-4 uppercase"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              Resources
+            </h3>
+            <ul className="space-y-2.5">
+              {["SAE E-BAJA", "NIT Agartala", "Blog", "FAQ", "Sponsors"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-sm text-gray-500 hover:text-[#00FF88] transition-colors duration-200">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-xs font-bold tracking-[0.2em] text-[#00FF88] mb-4 uppercase"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              Contact
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3 text-sm">
+                <MapPin size={15} className="text-[#00FF88] shrink-0 mt-0.5" />
+                <span className="text-gray-500">NIT Agartala, Tripura, India — 799046</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Phone size={15} className="text-[#00FF88] shrink-0" />
+                <span className="text-gray-500">+91 9876543210</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Mail size={15} className="text-[#00FF88] shrink-0" />
+                <a href="mailto:xanthronz.team@gmail.com" className="text-gray-500 hover:text-[#00FF88] transition-colors">
+                  xanthronz.team@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/5 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-600">
+          <p>© 2025 Team Xanthronz · NIT Agartala. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            Developed with{" "}
+            <Heart size={12} className="text-[#00FF88]" />{" "}
+            by the{" "}
+            <span className="text-[#00FF88] font-semibold">Xanthronz Tech Team</span>
           </p>
-
-          {/* Social icons */}
-          <div className="flex gap-4 mt-5">
-            <a href="#" className="hover:text-green-400"><Instagram size={18} /></a>
-            <a href="#" className="hover:text-green-400"><Linkedin size={18} /></a>
-            <a href="#" className="hover:text-green-400"><Github size={18} /></a>
-            <a href="#" className="hover:text-green-400"><Globe size={18} /></a>
-          </div>
         </div>
-
-        {/* ===== Middle Column ===== */}
-        <div className="flex flex-col sm:flex-row justify-around gap-8">
-          <div>
-            <h3 className="text-lg font-semibold text-green-400 mb-3">Navigation</h3>
-            <ul className="space-y-1">
-              <li><a href="#" className="hover:text-green-300">Home</a></li>
-              <li><a href="#" className="hover:text-green-300">Projects</a></li>
-              <li><a href="#" className="hover:text-green-300">Innovations</a></li>
-              <li><a href="#" className="hover:text-green-300">Team</a></li>
-              <li><a href="#" className="hover:text-green-300">About Us</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-green-400 mb-3">Quick Links</h3>
-            <ul className="space-y-1">
-              <li><a href="#" className="hover:text-green-300">Gallery</a></li>
-              <li><a href="#" className="hover:text-green-300">Blog</a></li>
-              <li><a href="#" className="hover:text-green-300">FAQ</a></li>
-              <li><a href="#" className="hover:text-green-300">Developers</a></li>
-              <li><a href="#" className="hover:text-green-300">Founders</a></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* ===== Right Column ===== */}
-        <div>
-          <h3 className="text-lg font-semibold text-green-400 mb-3">Contact Us</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-start gap-2">
-              <MapPin className="text-green-400 mt-0.5" size={16} />
-              <span>Xanthronz HQ, Innovation Hub, India</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <Phone className="text-green-400" size={16} />
-              <span>+91 9876543210</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <Mail className="text-green-400" size={16} />
-              <span>xanthronz.team@gmail.com</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* ===== Bottom Bar ===== */}
-      <div className="border-t border-gray-700 mt-10 pt-5 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
-        <p>© 2025 Xanthronz. All rights reserved.</p>
-        <p className="flex items-center gap-1 mt-3 md:mt-0">
-          Developed with <Heart className="text-green-400" size={14} /> by the{" "}
-          <span className="text-green-400 font-semibold">Xanthronz Tech Team</span>
-        </p>
       </div>
     </footer>
   );

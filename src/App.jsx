@@ -1,14 +1,6 @@
-import { useState } from 'react'
-import { Link, NavLink } from "react-router-dom";
+// App.jsx is not used directly — routing is handled in main.jsx via Layout.jsx
+// This file is kept for compatibility. The app entry point is main.jsx.
 
-function App() {
-
-  return (
-    <>
-      <h1 className='bg-green-500 justify-center items-center text-center'>This is web app for ebaja</h1>
-      
-    </>
-  )
+export default function App() {
+  return null;
 }
-
-export default App
