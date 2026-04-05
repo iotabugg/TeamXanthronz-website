@@ -1,145 +1,223 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, Image, Info, LogIn, UserPlus } from "lucide-react";
+import { Menu, X, Image, Info, ChevronRight, Zap } from "lucide-react";
+
+const NAV_LINKS = [
+  { to: "/", label: "Home" },
+  { to: "/Squads", label: "Squads" },
+  { to: "/events", label: "Events" },
+  { to: "/evolve", label: "Evolve" },
+];
+
+const DRAWER_LINKS = [
+  { to: "/gallery", label: "Gallery", icon: Image },
+  { to: "/about", label: "About Us", icon: Info },
+  { to: "/achievements", label: "Achievements", icon: Zap },
+];
 
 export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    function onKey(e) {
-      if (e.key === "Escape") setDrawerOpen(false);
-    }
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setDrawerOpen(false); };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [drawerOpen]);
+
   return (
-    <nav className="bg-gradient-to-r from-[#001804] via-[#001a0b] to-[#000d05] sticky top-0 z-50 shadow-[0_0_8px_rgba(0,255,136,0.1)] border-b border-[#00ff88]/20 backdrop-blur-md">
-      <div className="w-full h-20 flex items-center justify-between px-8">
-        {/* Left Logo Section */}
-        <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/logos/TEAM_logo.png"
-              alt="club logo"
-              className="h-14 w-auto drop-shadow-[0_0_3px_rgba(0,255,136,0.3)]"
-            />
-          </Link>
-          <h5 className="text-4xl font-[VT323] font-extrabold tracking-wide bg-gradient-to-r from-[#00ff88] to-[#0ba85a] bg-clip-text text-transparent drop-shadow-[0_0_5px_rgba(0,255,136,0.3)]">
-            XANTHRONZ
-          </h5>
-        </div>
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "bg-[#020c05]/95 backdrop-blur-xl shadow-[0_1px_0_rgba(0,255,136,0.12),0_8px_32px_rgba(0,0,0,0.6)]"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between gap-4">
 
-        {/* Center Nav Links */}
-        <ul className="hidden lg:flex items-center space-x-10">
-          {[
-            { to: "/", label: "Home" },
-            { to: "/Squads", label: "Squads" },
-            { to: "/events", label: "Events" },
-            { to: "/evolve", label: "Evolve" },
-          ].map(({ to, label }) => (
-            <li key={to} className="relative group">
-              <NavLink
-                to={to}
-                className={({ isActive }) =>
-                  [
-                    "relative font-semibold text-lg tracking-wide transition-all duration-300 pb-1 md:text-xl font-[Orbitron]",
-                    isActive
-                      ? "text-[#00FF88] drop-shadow-[0_0_5px_rgba(0,255,136,0.25)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-gradient-to-r after:from-[#00FF88] after:to-[#00FFCC] after:animate-[beam_2s_ease-in-out_infinite]"
-                      : "text-[#B8C2C0] hover:text-[#00FF88] hover:drop-shadow-[0_0_3px_rgba(0,255,136,0.15)] after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:w-0 hover:after:left-0 hover:after:w-full after:bg-[#00FF88] after:transition-all after:duration-300",
-                  ].join(" ")
-                }
-              >
-                {label}
-              </NavLink>
-            </li>
-          ))}
-
-          
-        </ul>
-
-        {/* Hamburger Menu Button (replaces auth buttons) */}
-        <div className="flex items-center">
-          <button
-            aria-label="Open menu"
-            onClick={() => setDrawerOpen(true)}
-            className="p-2 rounded-md text-[#00FF88] hover:bg-[#00FF88]/10 transition"
-          >
-            <Menu size={22} />
-          </button>
-        </div>
-      </div>
-
-      {/* Keyframes for electric underline pulse */}
-      <style>
-        {`
-          @keyframes beam {
-            0% { opacity: 0.6; transform: scaleX(0.4); filter: drop-shadow(0 0 2px #00FF88); }
-            50% { opacity: 1; transform: scaleX(1); filter: drop-shadow(0 0 5px #00FFCC); }
-            100% { opacity: 0.6; transform: scaleX(0.4); filter: drop-shadow(0 0 2px #00FF88); }
-          }
-        `}
-      </style>
-      {/* Side drawer + overlay */}
-      {drawerOpen && (
-        <div className="fixed inset-0 z-40">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setDrawerOpen(false)}
-          />
-
-          <aside className="absolute right-0 top-0 h-full w-[25vw] min-w-[220px] max-w-[360px] bg-zinc-900 border-l border-green-400 p-6 flex flex-col z-50 shadow-2xl font-[Orbitron] text-slate-200">
-            {/* Top: small logo/title + close */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <img src="/logos/TEAM_logo.png" alt="logo" className="h-8 w-8 rounded-md drop-shadow-[0_0_3px_rgba(0,255,136,0.2)]" />
-                <span className="text-cyan-300 font-semibold text-lg">XANTHRONZ</span>
-              </div>
-              <button onClick={() => setDrawerOpen(false)} aria-label="Close menu" className="p-2 rounded text-[#00FF88] hover:bg-[#00FF88]/10">
-                <X size={20} />
-              </button>
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+            <div className="relative">
+              <img
+                src="/logos/TEAM_logo.png"
+                alt="Xanthronz"
+                className="h-9 sm:h-12 w-auto drop-shadow-[0_0_6px_rgba(0,255,136,0.4)] group-hover:drop-shadow-[0_0_12px_rgba(0,255,136,0.6)] transition-all duration-300"
+              />
             </div>
+            <span
+              className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#00FF88] to-[#00CCFF] bg-clip-text text-transparent"
+              style={{ fontFamily: "'VT323', monospace" }}
+            >
+              XANTHRONZ
+            </span>
+          </Link>
 
-            {/* Nav items */}
-            <nav className="flex-1 mt-2">
-              <ul className="flex flex-col gap-6 pt-4">
-                <li>
-                  <Link to="/gallery" onClick={() => setDrawerOpen(false)} className="flex items-center gap-4 px-3 py-2 rounded-md hover:bg-zinc-800/40">
-                    <div className="bg-zinc-800/30 p-2 rounded-md text-cyan-300">
-                      <Image size={18} />
-                    </div>
-                    <span className="font-semibold text-base">Gallery</span>
-                  </Link>
-                </li>
+          {/* Desktop Nav */}
+          <ul className="hidden lg:flex items-center gap-1">
+            {NAV_LINKS.map(({ to, label }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  end={to === "/"}
+                  className={({ isActive }) =>
+                    `relative px-4 py-2 text-sm font-semibold tracking-widest transition-all duration-300 rounded-md inline-block
+                    ${isActive
+                      ? "text-[#00FF88]"
+                      : "text-[#8fa89a] hover:text-[#00FF88]"
+                    }`
+                  }
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
 
-                <li>
-                  <Link to="/about" onClick={() => setDrawerOpen(false)} className="flex items-center gap-4 px-3 py-2 rounded-md hover:bg-zinc-800/40">
-                    <div className="bg-zinc-800/30 p-2 rounded-md text-cyan-300">
-                      <Info size={18} />
-                    </div>
-                    <span className="font-semibold text-base">About Us</span>
-                  </Link>
-                </li>
-              </ul>
+          {/* Right: CTA + Hamburger */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              to="/about"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold tracking-widest rounded-full border border-[#00FF88]/30 text-[#00FF88] hover:bg-[#00FF88]/10 hover:border-[#00FF88]/60 transition-all duration-300"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
+              About
+            </Link>
+
+            <button
+              aria-label="Toggle menu"
+              onClick={() => setDrawerOpen((v) => !v)}
+              className="relative p-2 rounded-lg text-[#00FF88] hover:bg-[#00FF88]/10 transition-all duration-300 border border-transparent hover:border-[#00FF88]/20"
+            >
+              <span className={`block transition-all duration-300 ${drawerOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`}>
+                <Menu size={22} />
+              </span>
+              <span className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${drawerOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`}>
+                <X size={22} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* ── DRAWER ── */}
+      <div
+        className={`fixed inset-0 z-[60] transition-all duration-400 ${drawerOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        aria-hidden={!drawerOpen}
+      >
+        {/* Overlay */}
+        <div
+          className={`absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-400 ${drawerOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={() => setDrawerOpen(false)}
+        />
+
+        {/* Panel */}
+        <aside
+          className={`absolute right-0 top-0 h-full w-[85vw] max-w-xs sm:max-w-sm
+            bg-[#050f07] border-l border-[#00FF88]/15
+            flex flex-col shadow-[-20px_0_60px_rgba(0,0,0,0.8)]
+            transition-transform duration-400 ease-out
+            ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[#00FF88]/10">
+            <div className="flex items-center gap-3">
+              <img src="/logos/TEAM_logo.png" alt="logo" className="h-8 w-8" />
+              <span className="text-[#00FF88] font-bold text-sm tracking-widest" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                XANTHRONZ
+              </span>
+            </div>
+            <button
+              onClick={() => setDrawerOpen(false)}
+              className="p-2 rounded-lg text-[#00FF88]/60 hover:text-[#00FF88] hover:bg-[#00FF88]/10 transition-all"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Mobile Nav */}
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+            {/* Main nav */}
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#00FF88]/40 mb-3 uppercase" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              Navigation
+            </p>
+            <nav className="flex flex-col gap-1 mb-8">
+              {NAV_LINKS.map(({ to, label }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={to === "/"}
+                  onClick={() => setDrawerOpen(false)}
+                  className={({ isActive }) =>
+                    `flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200
+                    ${isActive
+                      ? "bg-[#00FF88]/10 text-[#00FF88] border border-[#00FF88]/20"
+                      : "text-[#8fa89a] hover:bg-[#ffffff]/5 hover:text-white"
+                    }`
+                  }
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {label}
+                  <ChevronRight size={14} className="opacity-40" />
+                </NavLink>
+              ))}
             </nav>
 
-            {/* Bottom: auth buttons (kept but styled like modal footer) */}
-            <div className="mt-auto">
-              <Link to="/login" onClick={() => setDrawerOpen(false)} className="block w-full text-center rounded-md border border-[#00FF88]/50 bg-gradient-to-r from-transparent to-transparent px-4 py-3 text-[#00FF88] font-semibold mb-3 hover:bg-[#00FF88]/8">
-                <span className="inline-flex items-center justify-center gap-2">
-                  <LogIn size={16} /> LOGIN
-                </span>
-              </Link>
+            {/* Extra links */}
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#00FF88]/40 mb-3 uppercase" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              More
+            </p>
+            <nav className="flex flex-col gap-1">
+              {DRAWER_LINKS.map(({ to, label, icon: Icon }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  onClick={() => setDrawerOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-[#8fa89a] hover:bg-[#ffffff]/5 hover:text-white transition-all duration-200"
+                >
+                  <div className="p-1.5 rounded-lg bg-[#00FF88]/8 text-[#00FF88]">
+                    <Icon size={14} />
+                  </div>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-              <Link to="/signup" onClick={() => setDrawerOpen(false)} className="block w-full text-center rounded-md bg-gradient-to-r from-[#00CC66] to-[#00FF88] px-4 py-3 text-black font-semibold">
-                <span className="inline-flex items-center justify-center gap-2">
-                  <UserPlus size={16} /> SIGN UP
-                </span>
-              </Link>
-            </div>
-          </aside>
-        </div>
-      )}
-    </nav>
+          {/* Footer CTAs */}
+          <div className="p-5 sm:p-6 border-t border-[#00FF88]/10 flex flex-col gap-3">
+            <Link
+              to="/login"
+              onClick={() => setDrawerOpen(false)}
+              className="w-full text-center py-3 rounded-xl border border-[#00FF88]/30 text-[#00FF88] text-sm font-bold tracking-widest hover:bg-[#00FF88]/8 transition-all"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
+              LOGIN
+            </Link>
+            <Link
+              to="/signup"
+              onClick={() => setDrawerOpen(false)}
+              className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-[#00CC66] to-[#00FF88] text-black text-sm font-black tracking-widest hover:opacity-90 transition-all"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
+              JOIN US
+            </Link>
+          </div>
+        </aside>
+      </div>
+
+    </>
   );
 }
