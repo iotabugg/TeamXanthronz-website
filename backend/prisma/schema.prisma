@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  previewFeatures = ["relationJoins"]
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum RequestStatus{
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum EventStatus {
+  UPCOMING
+  ONGOING
+  COMPLETED
+}
+
+enum GalleryType {
+  SLIDER
+  COLLAGE
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  role          Role      @default(MEMBER)
+  avatarUrl     String?
+  refreshToken  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  changeRequests  ChangeRequest[]
+  galleryUploads  GalleryImage[]
+}
+
+model Member {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  department  String
+  year        Int
+  imgUrl      String?
+  github      String?
+  linkedin    String?
+  email       String?
+  skills      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  year        Int
+  title       String
+  category    String
+  rankSummary Json?
+  highlights  String[]
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id          String      @id @default(cuid())
+  title       String
+  date        DateTime
+  venue       String
+  description String
+  status      EventStatus @default(UPCOMING)
+  imageUrl    String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model GalleryImage {
+  id         String      @id @default(cuid())
+  url        String
+  type       GalleryType
+  caption    String?
+  uploadedBy String
+  createdAt  DateTime    @default(now())
+
+  user User @relation(fields: [uploadedBy], references: [id])
+}
+
+model ChangeRequest {
+  id          String        @id @default(cuid())
+  requestedBy String
+  section     String
+  description String
+  status      RequestStatus @default(PENDING)
+  adminNote   String?
+  createdAt   DateTime      @default(now())
+  resolvedAt  DateTime?
+
+  user User @relation(fields: [requestedBy], references: [id])
+}
+
+model Sponsor {
+  id        String   @id @default(cuid())
+  name      String
+  logoUrl   String
+  websiteUrl String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
