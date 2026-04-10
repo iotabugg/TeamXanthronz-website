@@ -1,10 +1,6 @@
-import { app } from "./app.js";
-import dotenv from 'dotenv';
+import "dotenv/config";
+import app from "./app.js";
 import prisma from "./lib/prisma.js";
-
-dotenv.config({
-    path: './env'
-})
 
 const start = async () => {
     await prisma.$connect();

@@ -36,10 +36,18 @@ export const generateRefreshToken = (payload: TokenPayload): string => {
     } as SignOptions);
 };
 
-export const verifyAccessToken = (token: string): TokenPayload => {
-  return jwt.verify(token, process.env.JWT_SECRET as string) as TokenPayload
-};
+export const verifyAccessToken = (token: string): TokenPayload | null => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET!) as TokenPayload
+  } catch {
+    return null
+  }
+}
 
-export const verifyRefreshToken = (token: string): TokenPayload => {
-  return jwt.verify(token, process.env.JWT_REFRESH_SECRET as string) as TokenPayload
-};
+export const verifyRefreshToken = (token: string): TokenPayload | null => {
+  try {
+    return jwt.verify(token, process.env.JWT_REFRESH_SECRET as string) as TokenPayload
+  } catch {
+    return null
+  }
+}
