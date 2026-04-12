@@ -16,6 +16,7 @@ datasource db {
 enum Role {
   ADMIN
   MEMBER
+  GUEST
 }
 
 enum RequestStatus{
@@ -40,7 +41,7 @@ model User {
   name          String
   email         String    @unique
   passwordHash  String
-  role          Role      @default(MEMBER)
+  role          Role      @default(GUEST)
   avatarUrl     String?
   avtarPublicId String?
   refreshToken  String?

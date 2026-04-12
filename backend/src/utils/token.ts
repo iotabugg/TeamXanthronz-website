@@ -3,7 +3,7 @@ import { ApiError } from "./ApiError.js";
 
 export type TokenPayload = {
     userId: string;
-    role: "ADMIN" | "MEMBER";
+    role: "ADMIN" | "MEMBER" | "GUEST";
 };
 
 export const generateAccessToken = (payload: TokenPayload): string => {
