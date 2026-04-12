@@ -31,7 +31,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
     const parsed = registerSchema.safeParse(req.body)
 
     if(!parsed.success) {
-        throw new ApiError(400, 'Validation Failed.')
+        throw new ApiError(400, 'Validation Failed.', parsed.error.issues)
     }
     const { name, email, password } = parsed.data
     if(!name || !email || !password ) {
@@ -84,8 +84,7 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                role: user.role,
-                avatarUrl: user.avatarUrl
+                role: user.role
             },
         }, 'Logged in successfully.')
     )
@@ -131,7 +130,6 @@ export const getMe = asyncHandler( async (req: Request, res:Response) => {
             name: true,
             email: true,
             role: true,
-            avatarUrl: true,
             createdAt: true,
         }
     })

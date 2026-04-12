@@ -42,8 +42,6 @@ model User {
   email         String    @unique
   passwordHash  String
   role          Role      @default(GUEST)
-  avatarUrl     String?
-  avtarPublicId String?
   refreshToken  String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt

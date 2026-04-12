@@ -31,9 +31,22 @@ app.get("/heath", (_req,res) => {
 
 import authRouter from "./routes/auth.routes.js"
 import memberRouter from "./routes/member.routes.js"
+import achievementRouter from "./routes/achievement.routes.js"
+import eventRouter from "./routes/event.routes.js"
+import galleryRouter from "./routes/gallery.routes.js"
+import sponsorRouter from "./routes/sponsor.routes.js"
+import requestRouter from "./routes/changeRequest.routes.js"
+import userRouter from "./routes/user.routes.js"
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", memberRouter);
+app.use("/api/v1", achievementRouter);
+app.use("/api/v1", eventRouter);
+app.use("/api/v1", galleryRouter);
+app.use("/api/v1", sponsorRouter);
+app.use("/api/v1", requestRouter);
+app.use("/api/v1", userRouter);
+
 
 
 app.use(errorHandler);
