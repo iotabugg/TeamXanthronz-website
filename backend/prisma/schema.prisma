@@ -4,8 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["relationJoins"]
+  engineType      = "library"
 }
 
 datasource db {
@@ -15,6 +16,7 @@ datasource db {
 enum Role {
   ADMIN
   MEMBER
+  GUEST
 }
 
 enum RequestStatus{
@@ -39,8 +41,7 @@ model User {
   name          String
   email         String    @unique
   passwordHash  String
-  role          Role      @default(MEMBER)
-  avatarUrl     String?
+  role          Role      @default(GUEST)
   refreshToken  String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -56,6 +57,7 @@ model Member {
   department  String
   year        Int
   imgUrl      String?
+  imgPublicId String?
   github      String?
   linkedin    String?
   email       String?
@@ -72,6 +74,7 @@ model Achievement {
   rankSummary Json?
   highlights  String[]
   imageUrl    String?
+  imgPublicId String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -84,19 +87,21 @@ model Event {
   description String
   status      EventStatus @default(UPCOMING)
   imageUrl    String?
+  imgPublicId String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 }
 
 model GalleryImage {
-  id         String      @id @default(cuid())
-  url        String
-  type       GalleryType
-  caption    String?
-  uploadedBy String
-  createdAt  DateTime    @default(now())
+  id          String      @id @default(cuid())
+  url         String
+  imgPublicId String?
+  type        GalleryType
+  caption     String?
+  uploadedBy  String
+  createdAt   DateTime    @default(now())
 
-  user User @relation(fields: [uploadedBy], references: [id])
+  user User   @relation(fields: [uploadedBy], references: [id])
 }
 
 model ChangeRequest {
@@ -113,12 +118,13 @@ model ChangeRequest {
 }
 
 model Sponsor {
-  id        String   @id @default(cuid())
-  name      String
-  logoUrl   String
-  websiteUrl String?
-  order     Int      @default(0)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  name         String
+  logoUrl      String
+  logoPublicId String?
+  websiteUrl   String?
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
