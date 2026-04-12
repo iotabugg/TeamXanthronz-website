@@ -11,13 +11,16 @@ const memberSchema = z.object({
     role: z.string().min(2),
     department: z.string().min(2),
     year: z.coerce.number().int().min(2018),
-    github: z.url().optional().or(z.literal('')),
-    linkedIn: z.url().optional().or(z.literal('')),
+    github: z.string().optional().or(z.literal('')),
+    linkedIn: z.string().optional().or(z.literal('')),
     email: z.email().optional().or(z.literal('')),
-    skill: z.preprocess(
-        (val) => (typeof val === 'string' ? JSON.parse(val) : val),
-        z.array(z.string())
-    ),
+    skills: z.preprocess((val) => {
+    try {
+        return typeof val === 'string' ? JSON.parse(val) : val
+    } catch {
+        return val 
+    }
+    }, z.array(z.string()))
 })
 
 export const getMembers = asyncHandler(async(req: Request, res: Response) => {

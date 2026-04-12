@@ -1,5 +1,6 @@
 import "dotenv/config";
 import app from "./app.js";
+import { scheduleChangeRequestCleanup } from "./jobs/cleanupChangeRequests.js";
 import prisma from "./lib/prisma.js";
 
 const start = async () => {
@@ -9,6 +10,7 @@ const start = async () => {
     app.listen(process.env.PORT, () => {
         console.log(`🚀 Server running on port ${process.env.PORT}`)
     })
+    scheduleChangeRequestCleanup()
 };
 
 start().catch((err) => {
