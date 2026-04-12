@@ -30,8 +30,10 @@ app.get("/heath", (_req,res) => {
 })
 
 import authRouter from "./routes/auth.routes.js"
+import memberRouter from "./routes/member.routes.js"
 
 app.use("/api/v1", authRouter);
+app.use("/api/v1", memberRouter);
 
 
 app.use(errorHandler);
