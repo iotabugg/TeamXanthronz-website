@@ -50,11 +50,13 @@ export default function Lander() {
   return (
     <section className="relative flex flex-col justify-center items-center min-h-screen w-full overflow-hidden text-white px-4 sm:px-6">
 
-      {/* Glows */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="w-[700px] h-[700px] rounded-full bg-[#00FF88]/5 blur-[160px]" />
+      {/* Glows - properly contained */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[700px] h-[700px] rounded-full bg-[#00FF88]/5 blur-[160px]" />
+        </div>
+        <div className="absolute top-1/4 right-1/2 transform translate-x-1/2 w-[350px] h-[350px] rounded-full bg-[#00CCFF]/4 blur-[120px]" />
       </div>
-      <div className="pointer-events-none absolute top-1/4 right-0 w-[350px] h-[350px] rounded-full bg-[#00CCFF]/4 blur-[120px]" />
 
       <motion.div
         className="relative z-10 flex flex-col items-center text-center gap-5 sm:gap-7 max-w-5xl w-full mx-auto py-6"
