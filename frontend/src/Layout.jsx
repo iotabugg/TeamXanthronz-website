@@ -10,7 +10,7 @@ function Layout() {
   const location = useLocation()
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#040d06]/50">
+    <div className="min-h-screen flex flex-col bg-[#040d06]/50 overflow-x-hidden">
       <ScrollToTop />
 
       {/* Fixed header sits above everything */}
