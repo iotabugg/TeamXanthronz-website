@@ -5,9 +5,9 @@ import { requireRole } from '../middleware/requireRole.js'
 
 const router = Router()
 
-router.get('/', authenticate, requireRole('ADMIN'), getUsers)
-router.put('/me', authenticate, updateProfile)              
-router.put('/me/password', authenticate, changePassword)              
-router.put('/:id/role', authenticate, requireRole('ADMIN'), updateUserRole) 
+router.get('/users', authenticate, requireRole('ADMIN'), getUsers)
+router.put('/users/me', authenticate, updateProfile)              
+router.put('/users/me/password', authenticate, changePassword)              
+router.put('/users/:id/role', authenticate, requireRole('ADMIN'), updateUserRole) 
 
 export default router

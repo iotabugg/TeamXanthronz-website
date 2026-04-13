@@ -59,17 +59,49 @@ export const deleteGalleryImage = asyncHandler(async (req: Request, res: Respons
 
     const existing = await prisma.galleryImage.findUnique({
         where: { id: id as string },
-        select: { id: true, publicId: true }
+        select: { id: true, imgPublicId: true }
     })
     if (!existing) {
         throw new ApiError(404, 'Image not found')
     }
 
-    if (existing.publicId) {
-        await destroyFromCloudinary(existing.publicId)
+    if (existing.imgPublicId) {
+        await destroyFromCloudinary(existing.imgPublicId)
     }
 
     await prisma.galleryImage.delete({ where: { id: id as string } })
 
     res.json(new ApiResponse(200, null, 'Image deleted successfully'))
+})
+
+
+export const updateGalleryImage = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params
+    
+    const existing = await prisma.galleryImage.findUnique({
+        where: { id: id as string },
+    })
+    if (!existing) {
+        throw new ApiError(404, 'Image not found')
+    }
+
+    const parsed = gallerySchema.safeParse(req.body)
+    if (!parsed.success) {
+        throw new ApiError(400, 'Validation failed', parsed.error.issues)
+    }
+
+    const updated = await prisma.galleryImage.update({
+        where: { id: id as string },
+        data: {
+            caption: parsed.data.caption,
+            type: parsed.data.type,
+        },
+        include: {
+            user: {
+                select: { id: true, name: true }
+            }
+        }
+    })
+
+    res.json(new ApiResponse(200, updated, 'Image updated successfully'))
 })
