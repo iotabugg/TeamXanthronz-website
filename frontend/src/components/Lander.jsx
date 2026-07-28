@@ -132,15 +132,6 @@ export default function Lander() {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-xs sm:max-w-none sm:w-auto"
         >
-          {/* <motion.button
-            onClick={() => document.getElementById("explore")?.scrollIntoView({ behavior: "smooth" })}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00CC66] to-[#00FF88] text-black font-black text-xs tracking-[0.2em] shadow-[0_0_28px_rgba(0,255,136,0.3)] hover:shadow-[0_0_44px_rgba(0,255,136,0.5)] transition-shadow duration-300"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            EXPLORE
-          </motion.button> */}
           <motion.a
             href="/about"
             whileHover={{ scale: 1.04, y: -2 }}
