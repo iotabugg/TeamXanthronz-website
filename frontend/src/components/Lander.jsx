@@ -18,7 +18,7 @@ function RotatingWords() {
         <motion.span
           key={WORDS[index]}
           initial={{ y: "-110%", opacity: 0 }}
-          animate={{ y: "-10%", opacity: 1 }}
+          animate={{ y: "0px", opacity: 1 }}
           exit={{ y: "110%", opacity: 0 }}
           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
           className="absolute font-black text-[#00CCFF]"
@@ -32,7 +32,7 @@ function RotatingWords() {
 
 const STATS = [
   { num: "AIR 1", label: "Among IITs & NITs" },
-  { num: "2018", label: "Est. NIT Agartala" },
+  { num: "2021", label: "Est. NIT Agartala" },
   { num: "95+", label: "Teams Competed" },
   { num: "1st", label: "E-ATV NE India" },
 ];
@@ -48,18 +48,18 @@ const fadeUp = {
 
 export default function Lander() {
   return (
-    <section className="relative flex flex-col justify-center items-center min-h-screen w-full overflow-hidden text-white px-4 sm:px-6">
+    <section className="relative flex flex-col justify-center items-center h-[100vh] w-full overflow-hidden text-white px-4 sm:px-6">
 
       {/* Glows - properly contained */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[700px] h-[700px] rounded-full bg-[#00FF88]/5 blur-[160px]" />
+          <div className="w-[500px] h-[500px] rounded-full bg-[#00FF88]/5 blur-[100px]" />
         </div>
-        <div className="absolute top-1/4 right-1/2 transform translate-x-1/2 w-[350px] h-[350px] rounded-full bg-[#00CCFF]/4 blur-[120px]" />
+        <div className="absolute top-1/3 right-1/2 transform translate-x-1/2 w-[250px] h-[250px] rounded-full bg-[#00CCFF]/4 blur-[60px]" />
       </div>
 
       <motion.div
-        className="relative z-10 flex flex-col items-center text-center gap-5 sm:gap-7 max-w-5xl w-full mx-auto py-6"
+        className="relative z-10 flex flex-col items-center text-center gap-3 sm:gap-4 max-w-5xl w-full mx-auto py-2"
         variants={container}
         initial="hidden"
         animate="show"
@@ -71,7 +71,7 @@ export default function Lander() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] shadow-[0_0_8px_#00FF88] animate-pulse" />
-            SAE E-BAJA &nbsp;·&nbsp; NIT AGARTALA &nbsp;·&nbsp; SINCE 2018
+            SAE E-BAJA &nbsp;·&nbsp; NIT AGARTALA &nbsp;·&nbsp; SINCE 2021
           </span>
         </motion.div>
 
@@ -132,15 +132,6 @@ export default function Lander() {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-xs sm:max-w-none sm:w-auto"
         >
-          <motion.button
-            onClick={() => document.getElementById("explore")?.scrollIntoView({ behavior: "smooth" })}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00CC66] to-[#00FF88] text-black font-black text-xs tracking-[0.2em] shadow-[0_0_28px_rgba(0,255,136,0.3)] hover:shadow-[0_0_44px_rgba(0,255,136,0.5)] transition-shadow duration-300"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            EXPLORE
-          </motion.button>
           <motion.a
             href="/about"
             whileHover={{ scale: 1.04, y: -2 }}
