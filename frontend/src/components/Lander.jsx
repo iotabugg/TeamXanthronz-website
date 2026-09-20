@@ -18,7 +18,7 @@ function RotatingWords() {
         <motion.span
           key={WORDS[index]}
           initial={{ y: "-110%", opacity: 0 }}
-          animate={{ y: "-10%", opacity: 1 }}
+          animate={{ y: "0px", opacity: 1 }}
           exit={{ y: "110%", opacity: 0 }}
           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
           className="absolute font-black text-[#00CCFF]"
@@ -32,7 +32,7 @@ function RotatingWords() {
 
 const STATS = [
   { num: "AIR 1", label: "Among IITs & NITs" },
-  { num: "2018", label: "Est. NIT Agartala" },
+  { num: "2021", label: "Est. NIT Agartala" },
   { num: "95+", label: "Teams Competed" },
   { num: "1st", label: "E-ATV NE India" },
 ];
@@ -71,7 +71,7 @@ export default function Lander() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] shadow-[0_0_8px_#00FF88] animate-pulse" />
-            SAE E-BAJA &nbsp;·&nbsp; NIT AGARTALA &nbsp;·&nbsp; SINCE 2018
+            SAE E-BAJA &nbsp;·&nbsp; NIT AGARTALA &nbsp;·&nbsp; SINCE 2021
           </span>
         </motion.div>
 
